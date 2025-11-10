@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse,JSONResponse
 from contextlib import asynccontextmanager
 import os
 import uvicorn
@@ -29,10 +29,11 @@ app.include_router(transaction_router.router, prefix="/v1/transactions")
 @app.get("/health")
 async def health_check():
     from datetime import datetime
-    return {
+    data = {
         "status": "HEALTHY",
         "current_time": datetime.utcnow().isoformat() + "Z"
     }
+    return JSONResponse(content=data)
 
 if os.path.exists("dist"):
     app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
