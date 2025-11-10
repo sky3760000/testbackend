@@ -30,7 +30,7 @@ app.include_router(transaction_router.router, prefix="/v1/transactions")
 async def health_check():
     from datetime import datetime
     data = {
-        "status": "HEALTHY",
+        "status": "HEALTHY-test",
         "current_time": datetime.utcnow().isoformat() + "Z"
     }
     return JSONResponse(content=data)
